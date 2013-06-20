@@ -4,6 +4,7 @@ require 'rest-client'
 require 'cradlepointr/version'
 
 require 'cradlepointr/cradlepoint_object'
+require 'cradlepointr/net_device'
 require 'cradlepointr/router'
 require 'cradlepointr/config'
 
