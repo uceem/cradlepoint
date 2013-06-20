@@ -14,7 +14,7 @@ module Cradlepointr
     end
 
     def self.index
-      RestClient.get(build_url(rel_url))
+      Cradlepointr.handle_response RestClient.get(build_url(rel_url))
     end
 
     def self.get(id = @id)

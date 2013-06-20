@@ -24,12 +24,17 @@ describe Cradlepointr::NetDevice do
       subject { response }
       it { should be }
 
+      it 'should be successful' do
+        response['success'].should be_true
+      end
+
       it 'should raise an error when the router_id is not provided' do
         -> { net_device.get }.should raise_error
       end
 
       it 'should return the correct blob' do
         response['data'].any?.should be_true
+        response['data'].is_a?(Array).should be_true
       end
 
       it 'should have the correct keys' do

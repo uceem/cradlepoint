@@ -27,6 +27,10 @@ describe Cradlepointr::Router do
       subject { response }
       it { should be }
 
+      it 'should be successful' do
+        response['success'].should be_true
+      end
+
       it 'should raise an error when the id is not provided' do
         -> { router.get }.should raise_error
       end
@@ -37,6 +41,24 @@ describe Cradlepointr::Router do
 
       it 'should have the correct keys' do
         ['full_product_name', 'config_status', 'mac'].all? { |k| response_hash.has_key?(k) }.should be_true
+      end
+    end
+
+    describe '.index' do
+
+      let(:response)      { router.index           }
+      let(:response_hash) { response['data'].first }
+
+      subject { response }
+      it { should be }
+
+      it 'should be successful' do
+        response['success'].should be_true
+      end
+
+      it 'should return the correct blob' do
+        response['data'].any?.should be_true
+        response['data'].is_a?(Array).should be_true
       end
     end
   end
