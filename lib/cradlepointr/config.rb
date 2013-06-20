@@ -41,7 +41,7 @@ module Cradlepointr
     end
 
     def remove_config_editor(id)
-      Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id(id),
+      Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id(id)),
                                                      content_type: :json,
                                                      accept: :json)
     end
