@@ -21,10 +21,10 @@ module Cradlepointr
     response = case method
                when :routers then get_routers
                when :configs then get_configs
-               else raise 'No Cradlepointr method specified.'
+               else false
                end
     
-    handle_response(response)
+    response ? handle_response(response) : false
   end
   
   def self.authenticate(username, password)
