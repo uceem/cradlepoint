@@ -8,10 +8,6 @@ describe Cradlepointr::NetDevice do
   it { should be }
   it { should respond_to(:router_id) }
 
-  it 'should raise an error with a .get when a router_id is not provided' do
-    -> { net_device.get }.should raise_error
-  end
-
   it 'should provide the proper rel_url' do
     net_device.rel_url(123).should == '/routers/123/net_devices/'
   end
@@ -28,13 +24,16 @@ describe Cradlepointr::NetDevice do
       subject { response }
       it { should be }
 
+      it 'should raise an error when the router_id is not provided' do
+        -> { net_device.get }.should raise_error
+      end
+
       it 'should return the correct blob' do
         response['data'].any?.should be_true
       end
 
       it 'should have the correct keys' do
-        response_hash.has_key?('bytes_in').should be_true
-        response_hash.has_key?('bytes_out').should be_true
+        ['bytes_in', 'bytes_out'].all? { |k| response_hash.has_key?(k) }.should be_true
         response_hash['config'].is_a?(Hash).should be_true
       end
     end
