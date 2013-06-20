@@ -1,72 +1,79 @@
 require 'json'
-require 'rest_client'
-require 'cradlepointr/version'
-# require 'cradlepointer/router'
-# require 'cradlepointer/config'
+require 'rest-client'
 
+require 'cradlepointr/version'
+
+require 'cradlepointr/cradlepoint_object'
+require 'cradlepointr/net_device'
+require 'cradlepointr/router'
+require 'cradlepointr/config'
 
 module Cradlepointr
+
+  class << self
+    attr_accessor :username, :password, :base_url
+  end
   
-  @@base_url = 'beta.cradlepointecm.com/api/v1/'
-  @@username = nil
-  @@password = nil
-  
+  @base_url = 'beta.cradlepointecm.com/api/v1/'
+
   def self.make_request(method, params = {})
+    raise 'You need to call Cradlepointr.authenticate(username, password) first.' unless username and password
+
     response = case method
                when :routers then get_routers
                when :configs then get_configs
-               else raise 'No Cradlepointr method specified.'
+               else false
                end
     
-    handle_response(response)
+    response ? handle_response(response) : false
   end
   
   def self.authenticate(username, password)
-    @@username = username
-    @@password = password
+    @username = username
+    @password = password
     true
   end
   
   def self.url_prepend
-    "https://#{ @@username }:#{ @@password }@"
+    "https://#{ @username }:#{ @password }@"
   end
   
   def self.url_append
     "?format=json"
   end
   
+  # XXX: Deprecated, use Cradlepointr::Router.index
   def self.get_routers
-    RestClient.get("#{ url_prepend }#{ @@base_url }/routers#{ url_append }")
+    puts 'Cradlepointr.get_routers is deprecated, please use Cradlepointr::Router.index'
+    RestClient.get("#{ url_prepend }#{ @base_url }/routers#{ url_append }")
   end
   
+  # XXX: Deprecated, use Cradlepointr::Config.update(router)
   def self.do_config(router)
+    puts 'Cradlepointr.do_config is deprecated, please use Cradlepointr::Config.update(router)'
     config_editor = create_config_editor(router)
     update_config_editor(router, config_editor['data']['id'])
-    remove_config_editor(config_editor['data']['id'])
+    Cradlepointr::Config.remove_config_editor(config_editor['data']['id'])
   end
   
   def self.create_config_editor(router)
-    handle_response RestClient.post("#{ url_prepend }#{ @@base_url }/configuration_editors/",
+    handle_response RestClient.post("#{ url_prepend }#{ @base_url }/configuration_editors/",
                                     router.config.create_config_editor_data.to_json,
                                     content_type: :json,
                                     accept: :json)
   end
   
   def self.update_config_editor(router, config_editor_id)
-    handle_response RestClient.put("#{ url_prepend }#{ @@base_url }/configuration_editors/#{ config_editor_id }/",
+    handle_response RestClient.put("#{ url_prepend }#{ @base_url }/configuration_editors/#{ config_editor_id }/",
                                    router.config.update_config_editor_data(config_editor_id).to_json,
                                    content_type: :json,
                                    accept: :json)
   end
   
-  def self.remove_config_editor(config_editor_id)
-    handle_response RestClient.delete("#{ url_prepend }#{ @@base_url }/configuration_editors/#{ config_editor_id }/",
-                                      content_type: :json,
-                                      accept: :json)
-  end
-  
+  # XXX: Deprecated, use Cradlepointr::Config.get(router_id)
   def self.get_config_by_id(id)
-    handle_response RestClient.get("#{ url_prepend }#{ @@base_url }/routers/#{ id }/configuration_manager/#{ url_append }")
+    puts 'Cradlepointr.get_config_by_id is deprecated, please use Cradlepointr::Config.get(router_id)'
+    handle_response RestClient.get("#{ url_prepend }#{ @base_url }/routers/#{ id }/configuration_manager/#{ url_append }")
   end
   
   def self.handle_response(response)
