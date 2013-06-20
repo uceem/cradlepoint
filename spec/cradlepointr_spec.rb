@@ -4,7 +4,10 @@ describe Cradlepointr do
 
   let(:cradlepointr) { Cradlepointr }
 
+  subject { cradlepointr }
   it { should be }
+  it { should respond_to(:username) }
+  it { should respond_to(:password) }
 
   context 'authentication' do
 
@@ -12,7 +15,7 @@ describe Cradlepointr do
       -> { cradlepointr.make_request(:fake) }.should raise_error
     end
 
-    context 'with valid credentials' do
+    context 'with credentials' do
 
       before { cradlepointr.authenticate(:blah_user, :blah_password) }
 
@@ -23,6 +26,12 @@ describe Cradlepointr do
   end
 
   context 'make_request' do
-    
+
+    before { authenticate_with_valid_credentials }
+
+    it 'should return the proper credentials' do
+      cradlepointr.username.should == USERNAME
+      cradlepointr.password.should == PASSWORD
+    end
   end
 end

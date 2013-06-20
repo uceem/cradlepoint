@@ -14,8 +14,8 @@ end
 USERNAME ||= ENV['ecm_username']
 PASSWORD ||= ENV['evm_password']
 
-raise 'REQUIRED ENV variables: [ecm_username and ecm_password] in order to run the specs.' unless USERNAME and PASSWORD
+# raise 'REQUIRED ENV variables: [ecm_username and ecm_password] in order to run the specs.' unless USERNAME and PASSWORD
 
-def authenticate_with_valid_credentials
-  Cradlepointr.authenticate(USERNAME, PASSWORD)
+def authenticate_with_valid_credentials(username = USERNAME, password = PASSWORD)
+  Cradlepointr.authenticate(username, password)
 end
