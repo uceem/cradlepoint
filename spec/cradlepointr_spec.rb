@@ -21,4 +21,8 @@ describe Cradlepointr do
       end
     end
   end
+
+  context 'make_request' do
+    
+  end
 end
