@@ -1,6 +1,9 @@
 # Cradlepointr
 
-TODO: Write a gem description
+This is a gem that talks to Cradlepoint's Enterprise Cloud Manager \(ECM\).
+
+In order to use this gem you will need a valid ECM username and password.
+
 
 ## Installation
 
@@ -16,9 +19,30 @@ Or install it yourself as:
 
     $ gem install cradlepointr
 
+__Note:__ in order to run the tests you will need to do the following:
+
+    $ export ECM_USERNAME='<my_username>'
+    $ export ECM_PASSWORD='<my_password>'
+
+    # The ECM router id can be found at https://beta.cradlepointecm.com/
+    $ export ECM_ROUTER_ID='<my_router_id_from_ecm>'
+
+    $ rspec
+
 ## Usage
 
-TODO: Write usage instructions here
+Getting router information:
+
+```ruby
+Cradlepointr::Router.get(my_router_id) # => Router's JSON blob.
+Cradlepointr::Rouer.index              # => All the routers as a JSON array.
+```
+
+Getting net device information:
+
+```ruby
+Cradlepointr::NetDevice.get(my_router_id) # => Router's net_device info as JSON blob.
+```
 
 ## Contributing
 
