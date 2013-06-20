@@ -1,9 +1,11 @@
 require 'json'
 require 'rest_client'
-require 'cradlepointr/version'
-require 'cradlepointer/router'
-# require 'cradlepointer/config'
 
+require 'cradlepointr/version'
+
+require 'cradlepointr/cradlepoint_object'
+require 'cradlepointr/router'
+require 'cradlepointr/config'
 
 module Cradlepointr
   
