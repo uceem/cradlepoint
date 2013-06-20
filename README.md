@@ -19,7 +19,7 @@ Or install it yourself as:
 
     $ gem install cradlepointr
 
-_Note:_ in order to run the tests you will need to do the following:
+__Note:__ in order to run the tests you will need to do the following:
 
     $ export ECM_USERNAME='<my_username>'
     $ export ECM_PASSWORD='<my_password>'
