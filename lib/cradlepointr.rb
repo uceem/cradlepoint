@@ -9,13 +9,13 @@ require 'cradlepointr/router'
 require 'cradlepointr/config'
 
 module Cradlepointr
+
+  class << self
+    attr_accessor :username, :password, :base_url
+  end
   
   @base_url = 'beta.cradlepointecm.com/api/v1/'
 
-  class << self
-    attr_accessor :username, :password
-  end
-  
   def self.make_request(method, params = {})
     raise 'You need to call Cradlepointr.authenticate(username, password) first.' unless username and password
 
