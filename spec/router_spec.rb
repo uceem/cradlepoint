@@ -21,8 +21,8 @@ describe Cradlepointr::Router do
 
     describe '.get' do
 
-      let(:response)      { router.get(ROUTER_ID)  }
-      let(:response_hash) { response['data']       }
+      let(:response)      { router.new(ROUTER_ID).get }
+      let(:response_hash) { response['data']          }
 
       subject { response }
       it { should be }
