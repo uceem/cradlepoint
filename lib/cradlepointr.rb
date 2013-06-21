@@ -83,11 +83,11 @@ module Cradlepointr
       raise 'Cradlepointr received an invalid json response.'
     end
     
-    return case response.code
-           when 200, 302 then parsed_response
-           when 400, 401 then false
-           when 500 then false
-           else false
-           end
+    case response.code
+    when 200, 302 then parsed_response
+    when 400, 401 then false
+    when 500 then false
+    else false
+    end
   end
 end
