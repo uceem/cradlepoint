@@ -1,7 +1,7 @@
 module Cradlepointr
   class Router < CradlepointObject
 
-    attr_accessor :id
+    attr_accessor :id, :data, :configuration_uri
 
     def initialize(id = nil)
       self.id = id
@@ -29,7 +29,12 @@ module Cradlepointr
 
     def get
       raise 'You must provide an ECM router id' if id.nil?
-      Cradlepointr.handle_response RestClient.get(build_url(rel_url_with_id(id)))
+      self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url_with_id(id)))
+    end
+
+    def load_config_patch_data
+      return true if self.configuration_id and self.firmware_id
+      data = Cradlepointr.handle_response RestClient.get(build_url("#{ rel_url_with_id(self.id) }/configuration_manager"))
     end
   end
 end

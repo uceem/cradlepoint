@@ -4,6 +4,7 @@ require 'rest-client'
 require 'cradlepointr/version'
 
 require 'cradlepointr/cradlepoint_object'
+require 'cradlepointr/account'
 require 'cradlepointr/net_device'
 require 'cradlepointr/router'
 require 'cradlepointr/config'
@@ -11,7 +12,7 @@ require 'cradlepointr/config'
 module Cradlepointr
 
   class << self
-    attr_accessor :username, :password, :base_url
+    attr_accessor :username, :password, :account, :base_url
   end
   
   @base_url = 'beta.cradlepointecm.com/api/v1/'
