@@ -10,7 +10,7 @@ module Cradlepointr
   #   3. Then we simply DELETE the configuration_editor, the ECM API does the rest.
   class Config < CradlepointObject
 
-    attr_accessor :id, :router, :config_settings
+    attr_accessor :id, :router, :config_settings, :data
 
     def initialize(router, config_settings = nil)
       self.router = router
@@ -18,7 +18,7 @@ module Cradlepointr
     end
 
     def self.rel_url
-      '/configuration_editors'
+      '/configuration_editors/'
     end
 
     def rel_url
@@ -26,7 +26,7 @@ module Cradlepointr
     end
 
     def self.rel_url_with_id(id)
-      "#{ rel_url }/#{ id }/"
+      "#{ rel_url }#{ id }/"
     end
 
     def rel_url_with_id(id)
