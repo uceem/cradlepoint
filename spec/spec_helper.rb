@@ -11,9 +11,9 @@ RSpec.configure do |config|
   config.color_enabled = true
 end
 
-USERNAME ||= ENV['ECM_USERNAME']
-PASSWORD ||= ENV['ECM_PASSWORD']
-ROUTER_ID ||= ENV['ECM_ROUTER_ID']
+USERNAME   ||= ENV['ECM_USERNAME']
+PASSWORD   ||= ENV['ECM_PASSWORD']
+ROUTER_ID  ||= ENV['ECM_ROUTER_ID']
 ACCOUNT_ID ||= ENV['ECM_ACCOUNT_ID']
 
 unless USERNAME and PASSWORD and ROUTER_ID and ACCOUNT_ID

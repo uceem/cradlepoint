@@ -1,7 +1,7 @@
 module Cradlepointr
   class Router < CradlepointObject
 
-    attr_accessor :id, :data, :configuration_uri
+    attr_accessor :id, :data, :ecm_firmware_id
 
     def initialize(id = nil)
       self.id = id
@@ -19,7 +19,7 @@ module Cradlepointr
       "#{ rel_url }/#{ id }"
     end
 
-    def rel_url_with_id(id)
+    def rel_url_with_id
       Cradlepointr::Router.rel_url_with_id(id)
     end
 
@@ -32,9 +32,22 @@ module Cradlepointr
       self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url_with_id(id)))
     end
 
-    def load_config_patch_data
-      return true if self.configuration_id and self.firmware_id
-      data = Cradlepointr.handle_response RestClient.get(build_url("#{ rel_url_with_id(self.id) }/configuration_manager"))
+    def firmware_id
+      self.ecm_firmware_id ? self.firmware_id : lazy_load_router_data
+    end
+
+    def lazy_load_router_data
+      get  # Grab the data from the api.
+      self.ecm_firmware_id = self.data['data']['actual_firmware'].split('/').last
+    end
+
+    def get_configuration_editor_data
+      {
+        account: account.rel_url_with_id,
+        baseline: '',
+        firmware: '',
+        router: rel_url_with_id
+      }
     end
   end
 end

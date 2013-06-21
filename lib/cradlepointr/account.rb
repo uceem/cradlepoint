@@ -15,6 +15,14 @@ module Cradlepointr
       Cradlepointr::Account.rel_url
     end
 
+    def self.rel_url_with_id(id)
+      "#{ rel_url }/#{ id }"
+    end
+
+    def rel_url_with_id
+      Cradlepointr::Account.rel_url_with_id(id)
+    end
+
     def id
       self.ecm_id ? self.ecm_id : lazy_load_id
     end
