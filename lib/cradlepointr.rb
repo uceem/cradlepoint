@@ -30,8 +30,8 @@ module Cradlepointr
   end
   
   def self.authenticate(username, password)
-    @username = username
-    @password = password
+    self.username = username
+    self.password = password
     true
   end
   
