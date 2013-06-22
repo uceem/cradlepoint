@@ -31,4 +31,32 @@ describe Cradlepointr::Account do
       account.id.should == id
     end
   end
+
+  describe '.rel_url' do
+
+    let(:rel_url) { '/accounts' }
+
+    it 'should return the proper rel_url from the factory' do
+      Cradlepointr::Account.rel_url.should == rel_url
+    end
+
+    it 'should return the proper rel_url' do
+      Cradlepointr::Account.new.rel_url.should == rel_url
+    end
+  end
+
+  describe '.rel_url_with_id' do
+
+    let(:id) { 123 }
+    let(:rel_url_with_id) { "/accounts/#{ id }" }
+    let(:account) { Cradlepointr::Account.new(id) }
+
+    it 'should return the proper rel_url_with_id from the factory' do
+      Cradlepointr::Account.rel_url_with_id(id).should == rel_url_with_id
+    end
+
+    it 'should return the proper rel_url_with_id' do
+      account.rel_url_with_id.should == rel_url_with_id
+    end
+  end
 end
