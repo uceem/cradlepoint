@@ -2,7 +2,7 @@ module Cradlepointr
   class Router < CradlepointObject
 
     attr_accessor :id, :data, :ecm_firmware_uri, :ecm_configuration_uri, 
-                  :ecm_configuration_manager_data
+                  :ecm_configuration_manager_uri, :ecm_configuration_manager_data
 
     def initialize(id = nil)
       self.id = id
@@ -43,6 +43,7 @@ module Cradlepointr
 
     def get_configuration_manager_data
       check_for_id_or_raise_error
+      # ...
     end
 
     def firmware_uri
@@ -51,7 +52,7 @@ module Cradlepointr
     end
 
     def configuration_uri
-      lazy_load_router_data unless self.ecm_configuration_manager_data
+      lazy_load_router_data unless self.ecm_configuration_manager_uri
       lazy_load_configuration_manager_data unless self.ecm_configuration_uri
       self.ecm_configuration_uri
     end
@@ -59,11 +60,12 @@ module Cradlepointr
     def lazy_load_router_data
       get  # Grab the data from the api.
       self.ecm_firmware_uri = self.data['data']['actual_firmware']
-      self.ecm_configuration_uri = self.data['data']['actual']
+      self.ecm_configuration_manager_uri = self.data['data']['configuration_manager']
     end
 
     def lazy_load_configuration_manager_data
-
+      get_configuration_manager_data
+      # ...
     end
 
     def get_configuration_editor_data
