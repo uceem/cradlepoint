@@ -48,9 +48,10 @@ module Cradlepointr
       config.remove_editor
     end
 
-    def get_configuration_manager_data
+    def configuration_manager_data
       check_for_id_or_raise_error
-      # ...
+      lazy_load_configuration_manager_data unless self.ecm_configuration_manager_data
+      self.ecm_configuration_manager_data
     end
 
     def firmware_uri
@@ -71,8 +72,9 @@ module Cradlepointr
     end
 
     def lazy_load_configuration_manager_data
-      get_configuration_manager_data
-      # ...
+      self.ecm_configuration_manager_data = Cradlepointr.handle_response RestClient.get(build_url(rel_url_for_configuration_managers),
+                                                                                        content_type: :json,
+                                                                                        accept: :json)
     end
 
     def get_configuration_editor_data
