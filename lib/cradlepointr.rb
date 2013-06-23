@@ -15,7 +15,7 @@ module Cradlepointr
     attr_accessor :username, :password, :account, :base_url
   end
   
-  @base_url = 'beta.cradlepointecm.com/api/v1/'
+  @base_url = 'beta.cradlepointecm.com/api/v1'
 
   def self.make_request(method, params = {})
     raise 'You need to call Cradlepointr.authenticate(username, password) first.' unless username and password

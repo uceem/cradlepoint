@@ -10,7 +10,7 @@ module Cradlepointr
   #   3. Then we simply DELETE the configuration_editor, the ECM API does the rest.
   class Config < CradlepointObject
 
-    attr_accessor :id, :router, :config_settings
+    attr_accessor :id, :router, :config_settings, :ecm_editor_id, :data
 
     def initialize(router, config_settings = nil)
       self.router = router
@@ -18,7 +18,7 @@ module Cradlepointr
     end
 
     def self.rel_url
-      '/configuration_editors'
+      '/configuration_editors/'
     end
 
     def rel_url
@@ -26,10 +26,10 @@ module Cradlepointr
     end
 
     def self.rel_url_with_id(id)
-      "#{ rel_url }/#{ id }/"
+      "#{ rel_url }#{ id }/"
     end
 
-    def rel_url_with_id(id)
+    def rel_url_with_id
       Cradlepointr::Config.rel_url_with_id(id)
     end
 
@@ -41,27 +41,22 @@ module Cradlepointr
       Cradlepointr::Config.rel_url_from_router(router)
     end
 
-    def get(router = self.router)
-      Cradlepointr.handle_response RestClient.get(build_url(rel_url_with_router(router_id)),
-                                                  content_type: :json,
-                                                  accept: :json)
+    def create_editor
+      self.data = Cradlepointr.handle_response RestClient.post(build_url(rel_url),
+                                                               router.get_configuration_editor_data.to_json,
+                                                               content_type: :json,
+                                                               accept: :json)
     end
 
-    # TODO: Accept a hash rather than AR router.
-    def self.update(router)
-
+    def apply_config_to_editor
+      self.data = Cradlepointr.handle_response RestClient.put(build_url(rel_url_with_id),
+                                                              config_settings.to_json,
+                                                              content_type: :json,
+                                                              accept: :json)
     end
 
-    def create_config_editor(router)
-      Cradlepointr.handle_response RestClient.post(build_url(rel_url))
-    end
-
-    def self.apply_config_to_config_editor(router)
-
-    end
-
-    def remove
-      Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id(self.id)),
+    def remove_editor
+      Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id),
                                                      content_type: :json,
                                                      accept: :json)
     end

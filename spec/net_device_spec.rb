@@ -7,7 +7,8 @@ describe Cradlepointr::NetDevice do
   subject { net_device.new }
   it { should be }
   it { should respond_to(:id) }
-  it { should respond_to(:router_id) }
+  it { should respond_to(:data) }
+  it { should respond_to(:router) }
 
   it 'should provide the proper rel_url' do
     net_device.rel_url_from_router(123).should == '/routers/123/net_devices/'
@@ -19,28 +20,34 @@ describe Cradlepointr::NetDevice do
 
     describe '.get_all_from_router' do
 
-      let(:response)      { net_device.new(nil, ROUTER_ID).get_all_from_router }
-      let(:response_hash) { response['data'].first                             }
+      let(:router) { Cradlepointr::Router.new(ROUTER_ID) }
+      let(:device) { net_device.new(nil, router) }
 
-      subject { response }
-      it { should be }
+      before { device.get_all_from_router }
 
-      it 'should be successful' do
-        response['success'].should be_true
+      it 'should have been successful' do
+        device.data['success'].should be_true
       end
 
-      it 'should raise an error when the router_id is not provided' do
-        -> { net_device.get }.should raise_error
+      it 'should raise an error when there is no router' do
+        device_with_no_router = net_device.new
+        -> { device_with_no_router.get_all_from_router }.should raise_error
       end
 
-      it 'should return the correct blob' do
-        response['data'].any?.should be_true
-        response['data'].is_a?(Array).should be_true
+      # TODO: Overhaul these to allow them to endure the test of time.
+      # These are brittle, temporary tests to make sure the correct
+      # blob is being returned.
+      it 'should return a blob' do
+        device.data['data'].any?.should be_true
+      end
+
+      it 'should be an array' do
+        device.data['data'].is_a?(Array).should be_true
       end
 
       it 'should have the correct keys' do
-        ['bytes_in', 'bytes_out'].all? { |k| response_hash.has_key?(k) }.should be_true
-        response_hash['config'].is_a?(Hash).should be_true
+        ['bytes_in', 'bytes_out'].all? { |k| device.data['data'].first.has_key?(k) }.should be_true
+        device.data['data'].first['config'].is_a?(Hash).should be_true
       end
     end
   end

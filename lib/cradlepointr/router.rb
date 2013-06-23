@@ -17,7 +17,7 @@ module Cradlepointr
     end
 
     def self.rel_url_with_id(id)
-      "#{ rel_url }/#{ id }"
+      "#{ rel_url }/#{ id }/"
     end
 
     def rel_url_with_id
@@ -39,6 +39,13 @@ module Cradlepointr
     def get
       check_for_id_or_raise_error
       self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url_with_id))
+    end
+
+    def apply_new_config(config_settings = {})
+      config = Cradlepointr::Config.new(self, config_settings)
+      config.create_editor
+      config.apply_config_to_editor
+      config.remove_editor
     end
 
     def get_configuration_manager_data
@@ -70,10 +77,10 @@ module Cradlepointr
 
     def get_configuration_editor_data
       {
-        account: account.rel_url_with_id,
+        account: '/api/v1' + account.rel_url_with_id,
         baseline: configuration_uri,
         firmware: firmware_uri,
-        router: rel_url_with_id
+        router: '/api/v1' + rel_url_with_id
       }
     end
 
