@@ -46,6 +46,8 @@ module Cradlepointr
                                                                router.get_configuration_editor_data.to_json,
                                                                content_type: :json,
                                                                accept: :json)
+      self.id = self.data['data']['id']
+      self.data
     end
 
     def apply_config_to_editor
@@ -56,9 +58,9 @@ module Cradlepointr
     end
 
     def remove_editor
-      Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id),
-                                                     content_type: :json,
-                                                     accept: :json)
+      self.data = Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id),
+                                                                 content_type: :json,
+                                                                 accept: :json)
     end
   end
 end

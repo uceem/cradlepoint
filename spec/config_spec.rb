@@ -5,6 +5,12 @@ describe Cradlepointr::Config do
   let(:router) { Cradlepointr::Router.new(ROUTER_ID) }
   let(:config) { Cradlepointr::Config.new(router, {}) }
 
+  before do 
+    Cradlepointr.account = Cradlepointr::Account.new(ACCOUNT_ID)
+    authenticate_with_valid_credentials
+  end
+  after { logout }
+
   subject { config }
   it { should be }
   it { should respond_to(:id) }
@@ -23,7 +29,26 @@ describe Cradlepointr::Config do
     config.id = nil
   end
 
-  context 'when applying a configuration patch' do
+  context 'configuration patch' do
 
+    describe '.create_editor' do
+
+      before { config.create_editor }
+      after  { config.data = nil    }
+
+      it 'should have been successful' do
+        config.data['success'].should be_true
+      end
+    end
+
+    describe '.remove_editor' do
+
+      before { config.remove_editor }
+      after  { config.data = nil    }
+
+      it 'should have been successful' do
+        config.data['success'].should be_true
+      end
+    end
   end
 end

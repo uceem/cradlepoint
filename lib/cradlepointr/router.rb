@@ -44,8 +44,8 @@ module Cradlepointr
     def apply_new_config(config_settings = {})
       config = Cradlepointr::Config.new(self, config_settings)
       config.create_editor
-      # config.apply_config_to_editor
-      # config.remove_editor
+      config.apply_config_to_editor
+      config.remove_editor
     end
 
     def get_configuration_manager_data
@@ -77,7 +77,7 @@ module Cradlepointr
 
     def get_configuration_editor_data
       {
-        account: '/api/v1' + account.rel_url_with_id,
+        account: '/api/v1' + Cradlepointr.account.rel_url_with_id,
         baseline: configuration_uri,
         firmware: firmware_uri,
         router: '/api/v1' + rel_url_with_id
