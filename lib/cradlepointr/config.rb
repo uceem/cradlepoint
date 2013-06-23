@@ -52,7 +52,7 @@ module Cradlepointr
 
     def apply_config_to_editor
       self.data = Cradlepointr.handle_response RestClient.put(build_url(rel_url_with_id),
-                                                              config_settings.to_json,
+                                                              get_config_data_with_wrapper(config_settings).to_json,
                                                               content_type: :json,
                                                               accept: :json)
     end
@@ -62,5 +62,36 @@ module Cradlepointr
                                                                  content_type: :json,
                                                                  accept: :json)
     end
+
+    private
+
+      def get_config_data_with_wrapper(config_settings = {})
+        editor_data = router.get_configuration_editor_data
+        editor_data[:resource_uri] = '/api/v1' + rel_url_with_id
+        editor_data[:committed] = true
+        editor_data[:id] = self.id
+        editor_data[:diff_from_default] = [wifi_values_wrapper(config_settings), []]
+        editor_data
+      end
+      
+      def wifi_values_wrapper(config_settings)
+        {
+          wlan: {
+            bss: {
+              :'0' => wifi_values(config_settings)
+            }
+          }
+        }
+      end
+      
+      def wifi_values(config_settings)
+        {
+          system: { ui_activated: true },
+          radius0ip: config_settings[:radius_ip1],
+          radius1ip: config_settings[:radius_ip2],
+          radius0key: config_settings[:shared_secret] || :foobarbaz,
+          ssid: config_settings[:ssid] || '@uceem'
+        }
+      end
   end
 end
