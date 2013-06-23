@@ -44,8 +44,8 @@ module Cradlepointr
     def apply_new_config(config_settings = {})
       config = Cradlepointr::Config.new(self, config_settings)
       config.create_editor
-      config.apply_config_to_editor
-      config.remove_editor
+      # config.apply_config_to_editor
+      # config.remove_editor
     end
 
     def get_configuration_manager_data
