@@ -77,7 +77,7 @@ module Cradlepointr
 
     def get_configuration_editor_data
       {
-        account: '/api/v1' + account.rel_url_with_id,
+        account: '/api/v1' + Cradlepointr.account.rel_url_with_id,
         baseline: configuration_uri,
         firmware: firmware_uri,
         router: '/api/v1' + rel_url_with_id

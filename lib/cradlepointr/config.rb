@@ -10,7 +10,7 @@ module Cradlepointr
   #   3. Then we simply DELETE the configuration_editor, the ECM API does the rest.
   class Config < CradlepointObject
 
-    attr_accessor :id, :router, :config_settings, :ecm_editor_id, :data
+    attr_accessor :id, :router, :config_settings, :config_editor_id, :data
 
     def initialize(router, config_settings = nil)
       self.router = router
@@ -37,7 +37,7 @@ module Cradlepointr
       "#{ Cradlepointr::Router.rel_url }/#{ router.id }/configuration_manager/"
     end
 
-    def rel_url_from_router(router)
+    def rel_url_from_router
       Cradlepointr::Config.rel_url_from_router(router)
     end
 
@@ -46,6 +46,8 @@ module Cradlepointr
                                                                router.get_configuration_editor_data.to_json,
                                                                content_type: :json,
                                                                accept: :json)
+      self.id = self.data['data']['id']
+      self.data
     end
 
     def apply_config_to_editor
@@ -56,9 +58,9 @@ module Cradlepointr
     end
 
     def remove_editor
-      Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id),
-                                                     content_type: :json,
-                                                     accept: :json)
+      self.data = Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id),
+                                                                 content_type: :json,
+                                                                 accept: :json)
     end
   end
 end
