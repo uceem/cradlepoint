@@ -10,14 +10,14 @@ describe Cradlepointr::CradlepointObject do
   context 'factory' do
 
     it 'should return the correct url' do
-      factory_cradlepoint_object.build_url(:blah).should == url
+      factory_cradlepoint_object.build_url('/blah').should == url
     end
   end
 
   context 'initialized object' do
 
     it 'should return the correct url' do
-      cradlepoint_object.build_url(:blah).should == url
+      cradlepoint_object.build_url('/blah').should == url
     end
   end
 end

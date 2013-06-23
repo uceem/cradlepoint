@@ -16,7 +16,7 @@ module Cradlepointr
     end
 
     def self.rel_url_with_id(id)
-      "#{ rel_url }/#{ id }"
+      "#{ rel_url }/#{ id }/"
     end
 
     def rel_url_with_id

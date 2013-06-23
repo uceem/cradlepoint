@@ -12,7 +12,7 @@ describe Cradlepointr::Router do
   end
 
   it 'should provide the proper rel_url_with_id' do
-    router.rel_url_with_id(123).should == '/routers/123'
+    router.rel_url_with_id(123).should == '/routers/123/'
   end
 
   context 'when authenticated' do
@@ -60,6 +60,10 @@ describe Cradlepointr::Router do
         response['data'].any?.should be_true
         response['data'].is_a?(Array).should be_true
       end
+    end
+
+    describe '.apply_new_config' do
+
     end
   end
 end

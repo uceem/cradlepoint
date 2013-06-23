@@ -48,7 +48,7 @@ describe Cradlepointr::Account do
   describe '.rel_url_with_id' do
 
     let(:id) { 123 }
-    let(:rel_url_with_id) { "/accounts/#{ id }" }
+    let(:rel_url_with_id) { "/accounts/#{ id }/" }
     let(:account) { Cradlepointr::Account.new(id) }
 
     it 'should return the proper rel_url_with_id from the factory' do
