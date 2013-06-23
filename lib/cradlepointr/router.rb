@@ -43,16 +43,9 @@ module Cradlepointr
 
     def apply_new_config(config_settings = {})
       config = Cradlepointr::Config.new(self, config_settings)
-      Cradlepointr.handle_response RestClient.post(build_url(config.rel_url),
-                                                   get_configuration_editor_data.to_json,
-                                                   content_type: :json,
-                                                   accept: :json)
-    end
-
-    def remove_config_patch(config_id)
-      Cradlepointr.handle_response RestClient.delete(build_url(Cradlepointr::Config.rel_url_with_id(config_id)),
-                                                     content_type: :json,
-                                                     accept: :json)
+      config.create_editor
+      config.apply_config_to_editor
+      config.remove_editor
     end
 
     def get_configuration_manager_data

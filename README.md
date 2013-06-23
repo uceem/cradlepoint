@@ -43,7 +43,8 @@ Cradlepointr::Rouer.index              # => All the routers as a JSON array.
 Getting net device information:
 
 ```ruby
-Cradlepointr::NetDevice.get(my_router_id) # => Router's net_device info as JSON blob.
+router = Cradlepointr::NetDevice.new(my_router_id) # => Router object
+Cradlepointr::NetDevice.new(router).get            # => Router's net_device info as JSON blob.
 ```
 
 ## Contributing
