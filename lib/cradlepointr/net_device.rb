@@ -33,7 +33,7 @@ module Cradlepointr
     end
 
     def get_all_from_router
-      raise 'You must provide an ECM router id' if router.nil?
+      raise 'You must provide an ECM router' if router.nil?
       self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url_from_router),
                                                               content_type: :json,
                                                               accept: :json)
