@@ -62,6 +62,17 @@ describe Cradlepointr::Router do
       end
     end
 
+    describe '.get_configuration_manager_data' do
+
+      let(:the_router)  { router.new(ROUTER_ID) }
+
+      before { the_router.configuration_manager_data }
+
+      it 'should have gotten the configuration manager data' do
+        the_router.ecm_configuration_manager_data.should be
+      end
+    end
+
     describe '.apply_new_config' do
 
     end
