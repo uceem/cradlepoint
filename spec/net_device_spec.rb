@@ -7,7 +7,7 @@ describe Cradlepointr::NetDevice do
   subject { net_device.new }
   it { should be }
   it { should respond_to(:id) }
-  it { should respond_to(:router_id) }
+  it { should respond_to(:router) }
 
   it 'should provide the proper rel_url' do
     net_device.rel_url_from_router(123).should == '/routers/123/net_devices/'
@@ -19,8 +19,9 @@ describe Cradlepointr::NetDevice do
 
     describe '.get_all_from_router' do
 
-      let(:response)      { net_device.new(nil, ROUTER_ID).get_all_from_router }
-      let(:response_hash) { response['data'].first                             }
+      let(:router)        { Cradlepointr::Router.new(ROUTER_ID) }
+      let(:response)      { net_device.new(nil, router).get_all_from_router }
+      let(:response_hash) { response['data'].first }
 
       subject { response }
       it { should be }
