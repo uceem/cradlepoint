@@ -73,6 +73,15 @@ describe Cradlepointr::Router do
       end
     end
 
+    describe '.firmware_data' do
+
+      let(:the_router) { router.new(ROUTER_ID) }
+
+      it 'should have gotten the firmware data' do
+        the_router.firmware_data['success'].should be_true
+      end
+    end
+
     describe '.apply_new_config' do
 
     end
