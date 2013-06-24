@@ -56,7 +56,7 @@ module Cradlepointr
 
     def firmware_data
       check_for_id_or_raise_error
-      Cradlepointr.handle_response RestClient.get(build_url(firmware_uri.split('/api/v1').last))
+      Cradlepointr.handle_response RestClient.get(build_url(firmware_uri.split('/api/v1').last)) if firmware_uri
     end
 
     def firmware_uri
