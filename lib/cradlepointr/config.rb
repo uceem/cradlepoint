@@ -90,7 +90,7 @@ module Cradlepointr
           radius0ip: config_settings[:radius_ip1],
           radius1ip: config_settings[:radius_ip2],
           radius0key: config_settings[:shared_secret] || :foobarbaz,
-          ssid: config_settings[:ssid] || '@uceem'
+          ssid: config_settings[:ssid] || '@uceem_ECM'
         }
       end
   end
