@@ -54,6 +54,11 @@ module Cradlepointr
       self.ecm_configuration_manager_data
     end
 
+    def firmware_data
+      check_for_id_or_raise_error
+      Cradlepointr.handle_response RestClient.get(build_url(firmware_uri.split('/api/v1').last))
+    end
+
     def firmware_uri
       lazy_load_router_data unless self.ecm_firmware_uri
       self.ecm_firmware_uri
