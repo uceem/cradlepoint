@@ -47,7 +47,7 @@ describe Cradlepointr::NetDevice do
 
       it 'should have the correct keys' do
         ['bytes_in', 'bytes_out'].all? { |k| device.data['data'].first.has_key?(k) }.should be_true
-        device.data['data'].first['config'].is_a?(Hash).should be_true
+        device.data['data'][1]['config'].is_a?(Hash).should be_true
       end
     end
   end

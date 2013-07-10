@@ -24,6 +24,8 @@ def authenticate_with_valid_credentials(username = USERNAME, password = PASSWORD
   Cradlepointr.authenticate(username, password)
 end
 
+alias :login :authenticate_with_valid_credentials
+
 def logout
   Cradlepointr.username = nil
   Cradlepointr.password = nil
