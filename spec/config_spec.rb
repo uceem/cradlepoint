@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+=begin
 describe Cradlepointr::Config do
 
   let(:router) { Cradlepointr::Router.new(ROUTER_ID) }
@@ -68,3 +69,4 @@ describe Cradlepointr::Config do
     end
   end
 end
+=end
