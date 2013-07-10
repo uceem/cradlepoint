@@ -36,6 +36,7 @@ module Cradlepointr
            when 401 then { data: :unavailable }
            when 403 then { data: :unavailable }
            when 404 then { data: :unavailable }
+           when 500 then { data: :unavailable }
            else raise(e)
   end
   
