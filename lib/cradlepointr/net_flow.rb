@@ -18,12 +18,18 @@ module Cradlepointr
 
     def get
       raise 'You must provide a mac' unless self.mac
-      self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url), { params: { format: :json, mac: self.mac, limit: 1 }, accept: :json, content_type: :json })
+      self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url), params)
     end
 
     def get_status
       raise 'You must provide a mac' unless self.mac
-      self.status_data = Cradlepointr.handle_response RestClient.get(build_url("#{ rel_url }/status"), { params: { format: :json, mac: self.mac, limit: 1 }, accept: :json, content_type: :json })
+      self.status_data = Cradlepointr.handle_response RestClient.get(build_url("#{ rel_url }/status"), params)
     end
+
+    private
+
+      def params
+        { params: { format: :json, mac: self.mac, limit: 1 }, accept: :json, content_type: :json }
+      end
   end
 end
