@@ -60,7 +60,6 @@ module Cradlepointr
     begin
       parsed_response = JSON.parse(response)
     rescue JSON::ParserError, TypeError
-      puts response.inspect
       raise "Cradlepointr received an invalid json response."
     end
     
