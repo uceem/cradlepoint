@@ -78,6 +78,7 @@ describe Cradlepointr::Router do
       let(:the_router) { router.new(ROUTER_ID) }
 
       it 'should have gotten the firmware data' do
+        pending 'Waiting for updates to the firmware on the API side.'
         the_router.firmware_data['success'].should be_true
       end
     end

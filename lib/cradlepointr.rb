@@ -6,6 +6,7 @@ require 'cradlepointr/version'
 require 'cradlepointr/cradlepoint_object'
 require 'cradlepointr/account'
 require 'cradlepointr/net_device'
+require 'cradlepointr/net_flow'
 require 'cradlepointr/router'
 require 'cradlepointr/config'
 
@@ -17,16 +18,28 @@ module Cradlepointr
   
   @base_url = 'cradlepointecm.com/api/v1'
 
-  def self.make_request(method, params = {})
+  def self.make_request(method, url = '', params = {})
     raise 'You need to call Cradlepointr.authenticate(username, password) first.' unless username and password
 
+    parameters = { format: :json }
+    headers = { accept: :json, content_type: :json }
+
     response = case method
-               when :routers then get_routers
+               when :get then RestClient.get()
                when :configs then get_configs
                else false
                end
     
     response ? handle_response(response) : false
+  rescue RestClient::Exception => e
+    return case e.code
+           when 400 then { data: :unavailable }
+           when 401 then { data: :unavailable }
+           when 403 then { data: :unavailable }
+           when 404 then { data: :unavailable }
+           when 500 then { data: :unavailable }
+           else raise(e)
+           end
   end
   
   def self.authenticate(username, password)
@@ -46,8 +59,8 @@ module Cradlepointr
   def self.handle_response(response)
     begin
       parsed_response = JSON.parse(response)
-    rescue JSON::ParserError
-      raise 'Cradlepointr received an invalid json response.'
+    rescue JSON::ParserError, TypeError
+      raise "Cradlepointr received an invalid json response."
     end
     
     case response.code
