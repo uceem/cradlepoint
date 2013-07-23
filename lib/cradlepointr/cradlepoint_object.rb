@@ -2,7 +2,7 @@ module Cradlepointr
   class CradlepointObject
 
     def self.build_url(rel_url = '/')
-      "#{ Cradlepointr.url_prepend }#{ Cradlepointr.base_url }#{ rel_url }#{ Cradlepointr.url_append }"
+      "#{ Cradlepointr.url_prepend }#{ Cradlepointr.base_url }#{ rel_url }"
     end
 
     def build_url(rel_url = '/')

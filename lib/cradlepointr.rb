@@ -6,6 +6,7 @@ require 'cradlepointr/version'
 require 'cradlepointr/cradlepoint_object'
 require 'cradlepointr/account'
 require 'cradlepointr/net_device'
+require 'cradlepointr/net_flow'
 require 'cradlepointr/router'
 require 'cradlepointr/config'
 
@@ -38,6 +39,7 @@ module Cradlepointr
            when 404 then { data: :unavailable }
            when 500 then { data: :unavailable }
            else raise(e)
+           end
   end
   
   def self.authenticate(username, password)
@@ -57,8 +59,9 @@ module Cradlepointr
   def self.handle_response(response)
     begin
       parsed_response = JSON.parse(response)
-    rescue JSON::ParserError
-      raise 'Cradlepointr received an invalid json response.'
+    rescue JSON::ParserError, TypeError
+      puts response.inspect
+      raise "Cradlepointr received an invalid json response."
     end
     
     case response.code
