@@ -47,6 +47,10 @@ router = Cradlepointr::NetDevice.new(my_router_id) # => Router object
 Cradlepointr::NetDevice.new(router).get            # => Router's net_device info as JSON blob.
 ```
 
+## More Information
+
+http://dev.cradlepoint.com/
+
 ## Contributing
 
 1. Fork it
