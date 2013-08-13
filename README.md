@@ -22,7 +22,7 @@ Or install it yourself as:
 __Note:__ in order to run the tests you will need to do the following:
 
     # These are required in order to run the tests, you can locate these
-    # details at https://beta.cradlepointecm.com/
+    # details at https://cradlepointecm.com/
     $ export ECM_USERNAME='<my_username>'
     $ export ECM_PASSWORD='<my_password>'
     $ export ECM_ACCOUNT_ID='<my_account_id>'

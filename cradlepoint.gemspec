@@ -6,11 +6,11 @@ require 'cradlepoint/version'
 Gem::Specification.new do |spec|
   spec.name          = "cradlepoint"
   spec.version       = Cradlepoint::VERSION
-  spec.authors       = ["johnotander"]
-  spec.email         = ["johnotander@gmail.com"]
+  spec.authors       = ["uceem"]
+  spec.email         = ["support@uceem.com"]
   spec.description   = %q{Cradlepoint ECM API gem}
   spec.summary       = %q{Cradlepoint ECM API gem}
-  spec.homepage      = "http://www.uceem.com"
+  spec.homepage      = "https://www.uceem.com"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
