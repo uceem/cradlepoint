@@ -9,5 +9,5 @@ desc "Run tests"
 task default: :test
 
 task :build do
-  system "gem build cradlepointr.gemspec"
+  system "gem build cradlepoint.gemspec"
 end

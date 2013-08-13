@@ -1,4 +1,4 @@
-module Cradlepointr
+module Cradlepoint
   class Account < CradlepointObject
 
     attr_accessor :ecm_id, :data
@@ -12,7 +12,7 @@ module Cradlepointr
     end
 
     def rel_url
-      Cradlepointr::Account.rel_url
+      Cradlepoint::Account.rel_url
     end
 
     def self.rel_url_with_id(id)
@@ -20,7 +20,7 @@ module Cradlepointr
     end
 
     def rel_url_with_id
-      Cradlepointr::Account.rel_url_with_id(id)
+      Cradlepoint::Account.rel_url_with_id(id)
     end
 
     def id
@@ -28,7 +28,7 @@ module Cradlepointr
     end
 
     def lazy_load_id
-      self.data = Cradlepointr.handle_response RestClient.get(build_url(rel_url),
+      self.data = Cradlepoint.handle_response RestClient.get(build_url(rel_url),
                                                               content_type: :json,
                                                               accept: :json)
       self.ecm_id = self.data['data'][0]['id']

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cradlepointr/version'
+require 'cradlepoint/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cradlepointr"
-  spec.version       = Cradlepointr::VERSION
+  spec.name          = "cradlepoint"
+  spec.version       = Cradlepoint::VERSION
   spec.authors       = ["johnotander"]
   spec.email         = ["johnotander@gmail.com"]
   spec.description   = %q{Cradlepoint ECM API gem}

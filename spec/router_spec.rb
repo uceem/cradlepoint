@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Cradlepointr::Router do
+describe Cradlepoint::Router do
 
-  let(:router) { Cradlepointr::Router }
+  let(:router) { Cradlepoint::Router }
 
   subject { router }
   it { should be }

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Cradlepointr::Account do
+describe Cradlepoint::Account do
 
   context 'without an id' do
 
-    let(:account) { Cradlepointr::Account.new }
+    let(:account) { Cradlepoint::Account.new }
 
     before do 
       authenticate_with_valid_credentials
@@ -25,7 +25,7 @@ describe Cradlepointr::Account do
   context 'with an id' do
 
     let(:id) { 123 }
-    let(:account) { Cradlepointr::Account.new(id) }
+    let(:account) { Cradlepoint::Account.new(id) }
 
     it 'should return the id' do
       account.id.should == id
@@ -37,11 +37,11 @@ describe Cradlepointr::Account do
     let(:rel_url) { '/accounts' }
 
     it 'should return the proper rel_url from the factory' do
-      Cradlepointr::Account.rel_url.should == rel_url
+      Cradlepoint::Account.rel_url.should == rel_url
     end
 
     it 'should return the proper rel_url' do
-      Cradlepointr::Account.new.rel_url.should == rel_url
+      Cradlepoint::Account.new.rel_url.should == rel_url
     end
   end
 
@@ -49,10 +49,10 @@ describe Cradlepointr::Account do
 
     let(:id) { 123 }
     let(:rel_url_with_id) { "/accounts/#{ id }/" }
-    let(:account) { Cradlepointr::Account.new(id) }
+    let(:account) { Cradlepoint::Account.new(id) }
 
     it 'should return the proper rel_url_with_id from the factory' do
-      Cradlepointr::Account.rel_url_with_id(id).should == rel_url_with_id
+      Cradlepoint::Account.rel_url_with_id(id).should == rel_url_with_id
     end
 
     it 'should return the proper rel_url_with_id' do

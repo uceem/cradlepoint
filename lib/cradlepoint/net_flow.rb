@@ -1,4 +1,4 @@
-module Cradlepointr
+module Cradlepoint
   class NetFlow < CradlepointObject
 
     attr_accessor :mac, :router, :data, :status_data
@@ -13,17 +13,17 @@ module Cradlepointr
     end
 
     def rel_url
-      Cradlepointr::NetFlow.rel_url
+      Cradlepoint::NetFlow.rel_url
     end
 
     def get
       raise 'You must provide a mac' unless self.mac
-      self.data = Cradlepointr.handle_response RestClient.get(build_new_url(rel_url), params)
+      self.data = Cradlepoint.handle_response RestClient.get(build_new_url(rel_url), params)
     end
 
     def get_status
       raise 'You must provide a mac' unless self.mac
-      self.status_data = Cradlepointr.handle_response RestClient.get(build_new_url("#{ rel_url }/status"), params)
+      self.status_data = Cradlepoint.handle_response RestClient.get(build_new_url("#{ rel_url }/status"), params)
     end
 
     def params

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Cradlepointr::NetFlow do
+describe Cradlepoint::NetFlow do
 
-  let(:net_flow) { Cradlepointr::NetFlow.new(ROUTER_MAC) }
+  let(:net_flow) { Cradlepoint::NetFlow.new(ROUTER_MAC) }
 
   before { login }
 

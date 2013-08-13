@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Cradlepointr::NetDevice do
+describe Cradlepoint::NetDevice do
 
-  let(:net_device) { Cradlepointr::NetDevice }
+  let(:net_device) { Cradlepoint::NetDevice }
 
   subject { net_device.new }
   it { should be }
@@ -20,7 +20,7 @@ describe Cradlepointr::NetDevice do
 
     describe '.get_all_from_router' do
 
-      let(:router) { Cradlepointr::Router.new(ROUTER_ID) }
+      let(:router) { Cradlepoint::Router.new(ROUTER_ID) }
       let(:device) { net_device.new(nil, router) }
 
       before { device.get_all_from_router }

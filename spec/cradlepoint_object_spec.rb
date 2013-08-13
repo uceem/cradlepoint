@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Cradlepointr::CradlepointObject do
+describe Cradlepoint::CradlepointObject do
 
-  let(:factory_cradlepoint_object) { Cradlepointr::CradlepointObject     }
-  let(:cradlepoint_object)         { Cradlepointr::CradlepointObject.new }
+  let(:factory_cradlepoint_object) { Cradlepoint::CradlepointObject     }
+  let(:cradlepoint_object)         { Cradlepoint::CradlepointObject.new }
 
   let(:url) { 'https://:@cradlepointecm.com/api/v1/blah?format=json' }
 

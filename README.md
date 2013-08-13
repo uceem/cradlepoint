@@ -1,4 +1,4 @@
-# Cradlepointr
+# Cradlepoint
 
 This is a gem that talks to Cradlepoint's Enterprise Cloud Manager \(ECM\).
 
@@ -9,7 +9,7 @@ In order to use this gem you will need a valid ECM username and password.
 
 Add this line to your application's Gemfile:
 
-    gem 'cradlepointr'
+    gem 'cradlepoint'
 
 And then execute:
 
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install cradlepointr
+    $ gem install cradlepoint
 
 __Note:__ in order to run the tests you will need to do the following:
 
@@ -36,15 +36,15 @@ __Note:__ in order to run the tests you will need to do the following:
 Getting router information:
 
 ```ruby
-Cradlepointr::Router.get(my_router_id) # => Router's JSON blob.
-Cradlepointr::Rouer.index              # => All the routers as a JSON array.
+Cradlepoint::Router.get(my_router_id) # => Router's JSON blob.
+Cradlepoint::Rouer.index              # => All the routers as a JSON array.
 ```
 
 Getting net device information:
 
 ```ruby
-router = Cradlepointr::NetDevice.new(my_router_id) # => Router object
-Cradlepointr::NetDevice.new(router).get            # => Router's net_device info as JSON blob.
+router = Cradlepoint::NetDevice.new(my_router_id) # => Router object
+Cradlepoint::NetDevice.new(router).get            # => Router's net_device info as JSON blob.
 ```
 
 ## More Information

@@ -5,7 +5,7 @@ require 'rspec'
 require 'json'
 require 'rest-client'
 
-require 'cradlepointr'
+require 'cradlepoint'
 
 RSpec.configure do |config|
   config.color_enabled = true
@@ -22,12 +22,12 @@ unless USERNAME and PASSWORD and ROUTER_ID and ACCOUNT_ID
 end
 
 def authenticate_with_valid_credentials(username = USERNAME, password = PASSWORD)
-  Cradlepointr.authenticate(username, password)
+  Cradlepoint.authenticate(username, password)
 end
 
 alias :login :authenticate_with_valid_credentials
 
 def logout
-  Cradlepointr.username = nil
-  Cradlepointr.password = nil
+  Cradlepoint.username = nil
+  Cradlepoint.password = nil
 end

@@ -1,6 +1,6 @@
-module Cradlepointr
+module Cradlepoint
   # In order to apply a configuration to the ECM you can simply call 
-  # Cradlepointr::Config.update(router), where the router is currently
+  # Cradlepoint::Config.update(router), where the router is currently
   # an ActiveRecord object, this will soon merely require a ruby dictionary
   # instead.
   #
@@ -22,7 +22,7 @@ module Cradlepointr
     end
 
     def rel_url
-      Cradlepointr::Config.rel_url
+      Cradlepoint::Config.rel_url
     end
 
     def self.rel_url_with_id(id)
@@ -30,19 +30,19 @@ module Cradlepointr
     end
 
     def rel_url_with_id
-      Cradlepointr::Config.rel_url_with_id(id)
+      Cradlepoint::Config.rel_url_with_id(id)
     end
 
     def self.rel_url_from_router(router)
-      "#{ Cradlepointr::Router.rel_url }/#{ router.id }/configuration_manager/"
+      "#{ Cradlepoint::Router.rel_url }/#{ router.id }/configuration_manager/"
     end
 
     def rel_url_from_router
-      Cradlepointr::Config.rel_url_from_router(router)
+      Cradlepoint::Config.rel_url_from_router(router)
     end
 
     def create_editor
-      self.data = Cradlepointr.handle_response RestClient.post(build_url(rel_url),
+      self.data = Cradlepoint.handle_response RestClient.post(build_url(rel_url),
                                                                router.get_configuration_editor_data.to_json,
                                                                content_type: :json,
                                                                accept: :json)
@@ -51,14 +51,14 @@ module Cradlepointr
     end
 
     def apply_config_to_editor
-      self.data = Cradlepointr.handle_response RestClient.put(build_url(rel_url_with_id),
+      self.data = Cradlepoint.handle_response RestClient.put(build_url(rel_url_with_id),
                                                               get_config_data_with_wrapper(config_settings).to_json,
                                                               content_type: :json,
                                                               accept: :json)
     end
 
     def remove_editor
-      self.data = Cradlepointr.handle_response RestClient.delete(build_url(rel_url_with_id),
+      self.data = Cradlepoint.handle_response RestClient.delete(build_url(rel_url_with_id),
                                                                  content_type: :json,
                                                                  accept: :json)
     end

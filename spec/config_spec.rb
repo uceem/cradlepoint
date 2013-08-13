@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 =begin
-describe Cradlepointr::Config do
+describe Cradlepoint::Config do
 
-  let(:router) { Cradlepointr::Router.new(ROUTER_ID) }
-  let(:config) { Cradlepointr::Config.new(router, {}) }
+  let(:router) { Cradlepoint::Router.new(ROUTER_ID) }
+  let(:config) { Cradlepoint::Config.new(router, {}) }
 
   before do
-    Cradlepointr.account = Cradlepointr::Account.new(ACCOUNT_ID)
+    Cradlepoint.account = Cradlepoint::Account.new(ACCOUNT_ID)
     authenticate_with_valid_credentials
   end
   after { logout }

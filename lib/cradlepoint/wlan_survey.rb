@@ -1,4 +1,4 @@
-module Cradlepointr
+module Cradlepoint
   class WlanSurvey < CradlepointObject
 
     attr_accessor :router, :data
