@@ -3,6 +3,8 @@ require 'rest-client'
 
 require 'cradlepoint/version'
 
+require 'cradlepoint/hash_helpers'
+
 require 'cradlepoint/cradlepoint_object'
 require 'cradlepoint/account'
 require 'cradlepoint/net_device'
