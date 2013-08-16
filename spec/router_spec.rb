@@ -42,6 +42,21 @@ describe Cradlepoint::Router do
       it 'should have the correct keys' do
         ['full_product_name', 'config_status', 'mac'].all? { |k| response_hash.has_key?(k) }.should be_true
       end
+
+      describe 'attrs' do
+
+        let(:ecm_router) { router.new(ROUTER_ID) }
+        let(:attrs) { [:mac, :config_status, :description, :full_product_name, :ip_address, :name, :stream_usage_in, 
+                       :stream_usage_out, :stream_usage_period] }
+
+        before { ecm_router.get }
+
+        it 'should be assigned correctly' do
+          attrs.each do |a|
+            ecm_router.send(a).should == ecm_router.data['data'][a.to_s]
+          end
+        end
+      end
     end
 
     describe '.index' do

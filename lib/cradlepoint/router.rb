@@ -1,8 +1,11 @@
 module Cradlepoint
   class Router < CradlepointObject
+    include Cradlepoint::HashHelpers
 
     attr_accessor :id, :data, :ecm_firmware_uri, :ecm_configuration_uri, 
-                  :ecm_configuration_manager_uri, :ecm_configuration_manager_data
+                  :ecm_configuration_manager_uri, :ecm_configuration_manager_data,
+                  :mac, :config_status, :description, :full_product_name, :ip_address,
+                  :name, :stream_usage_in, :stream_usage_out, :stream_usage_period
 
     def initialize(id = nil)
       self.id = id
@@ -39,6 +42,8 @@ module Cradlepoint
     def get
       check_for_id_or_raise_error
       self.data = Cradlepoint.handle_response RestClient.get(build_url(rel_url_with_id))
+      assign_attributes_from_data
+      self.data
     end
 
     def apply_new_config(config_settings = {})
@@ -92,6 +97,21 @@ module Cradlepoint
     end
 
     private
+
+      def assign_attributes_from_data
+        return unless self.data and self.data['data'] and self.data['data'].any?
+
+        raw_data = symbolize_keys(self.data['data'])
+        self.mac = raw_data[:mac]
+        self.name = raw_data[:name]
+        self.ip_address = raw_data[:ip_address]
+        self.config_status = raw_data[:config_status]
+        self.description = raw_data[:description]
+        self.full_product_name = raw_data[:full_product_name]
+        self.stream_usage_in = raw_data[:stream_usage_in]
+        self.stream_usage_out = raw_data[:stream_usage_out]
+        self.stream_usage_period = raw_data[:stream_usage_period]
+      end
 
       def check_for_id_or_raise_error
         raise 'You must provide an ECM router id' if id.nil?
