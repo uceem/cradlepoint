@@ -22,7 +22,7 @@ describe Cradlepoint::Router do
     describe '.get' do
 
       let(:response)      { router.new(ROUTER_ID).get }
-      let(:response_hash) { response['data']          }
+      let(:response_hash) { response                  }
 
       subject { response }
       it { should be }
@@ -36,7 +36,7 @@ describe Cradlepoint::Router do
       end
 
       it 'should return the correct blob' do
-        response['data'].any?.should be_true
+        response.any?.should be_true
       end
 
       it 'should have the correct keys' do
@@ -53,7 +53,7 @@ describe Cradlepoint::Router do
 
         it 'should be assigned correctly' do
           attrs.each do |a|
-            ecm_router.send(a).should == ecm_router.data['data'][a.to_s]
+            ecm_router.send(a).should == ecm_router.data[a]
           end
         end
       end
@@ -61,8 +61,8 @@ describe Cradlepoint::Router do
 
     describe '.index' do
 
-      let(:response)      { router.index           }
-      let(:response_hash) { response['data'].first }
+      let(:response)      { router.index   }
+      let(:response_hash) { response.first }
 
       subject { response }
       it { should be }
@@ -72,8 +72,8 @@ describe Cradlepoint::Router do
       end
 
       it 'should return the correct blob' do
-        response['data'].any?.should be_true
-        response['data'].is_a?(Array).should be_true
+        response.any?.should be_true
+        response.is_a?(Array).should be_true
       end
     end
 

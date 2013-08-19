@@ -54,10 +54,6 @@ module Cradlepoint
     "https://#{ @username }:#{ @password }@"
   end
   
-  def self.url_append
-    "?format=json"
-  end
-  
   def self.handle_response(response)
     begin
       parsed_response = JSON.parse(response)

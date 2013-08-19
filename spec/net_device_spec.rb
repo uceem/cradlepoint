@@ -26,27 +26,23 @@ describe Cradlepoint::NetDevice do
 
       before { devices }
 
-      it 'should have been successful' do
-        device.data['success'].should be_true
-      end
-
       it 'should raise an error when there is no router' do
         device_with_no_router = net_device.new
         -> { device_with_no_router.get_all_from_router }.should raise_error
       end
 
       it 'should return a blob' do
-        device.data['data'].any?.should be_true
+        devices.any?.should be_true
       end
 
       it 'should be an array' do
-        device.data['data'].is_a?(Array).should be_true
+        device.data.is_a?(Array).should be_true
       end
 
       describe 'devices' do
 
         let(:first_net_device) { devices.first }
-        let(:first_raw_data)   { symbolize_keys(device.data['data'].first) }
+        let(:first_raw_data)   { device.data.first }
         let(:attrs)            { [:bytes_in, :bytes_out, :carrier, :esn, :imei, :info, 
                                   :ip_address, :mac, :mode, :name, :type, :uptime] }
 
