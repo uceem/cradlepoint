@@ -65,6 +65,8 @@ module Cradlepoint
       raise "Cradlepoint received an invalid json response."
     end
     
-    parsed_response['success'] ? parsed_response : raise("Unsuccessful response received.")
+    parsed_response['success'] ? 
+      symbolize_keys(parsed_response['data']) : 
+      raise("Unsuccessful response received.")  # TODO: Handle more elegantly.
   end
 end
