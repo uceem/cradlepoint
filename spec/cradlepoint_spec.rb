@@ -27,7 +27,7 @@ describe Cradlepoint do
 
   context 'make_request' do
 
-    before { authenticate_with_valid_credentials }
+    before { login }
 
     it 'should return the proper credentials' do
       cradlepoint.username.should == USERNAME
