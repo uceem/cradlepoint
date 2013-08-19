@@ -7,7 +7,7 @@ describe Cradlepoint::Account do
     let(:account) { Cradlepoint::Account.new }
 
     before do 
-      authenticate_with_valid_credentials
+      login
       account.id
     end
 

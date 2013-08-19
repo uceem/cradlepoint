@@ -17,7 +17,7 @@ describe Cradlepoint::Router do
 
   context 'when authenticated' do
 
-    before { authenticate_with_valid_credentials }
+    before { login }
 
     describe '.get' do
 

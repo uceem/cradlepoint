@@ -16,7 +16,7 @@ describe Cradlepoint::NetDevice do
 
   context 'when authenticated' do
 
-    before { authenticate_with_valid_credentials }
+    before { login }
 
     describe '.get_all_from_router' do
 
