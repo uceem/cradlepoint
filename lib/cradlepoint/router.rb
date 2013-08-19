@@ -36,12 +36,12 @@ module Cradlepoint
     end
 
     def self.index
-      Cradlepoint.handle_response RestClient.get(build_url(rel_url))
+      Cradlepoint.make_request(:get, build_url(rel_url))
     end
 
     def get
       check_for_id_or_raise_error
-      self.data = Cradlepoint.handle_response RestClient.get(build_url(rel_url_with_id))
+      self.data = Cradlepoint.make_request(:get, build_url(rel_url_with_id))
       assign_attributes_from_data
       self.data
     end
@@ -61,7 +61,7 @@ module Cradlepoint
 
     def firmware_data
       check_for_id_or_raise_error
-      Cradlepoint.handle_response RestClient.get(build_url(firmware_uri.split('/api/v1').last)) if firmware_uri
+      Cradlepoint.make_request(:get, build_url(firmware_uri.split('/api/v1').last))
     end
 
     def firmware_uri
@@ -82,9 +82,7 @@ module Cradlepoint
     end
 
     def lazy_load_configuration_manager_data
-      self.ecm_configuration_manager_data = Cradlepoint.handle_response RestClient.get(build_url(rel_url_for_configuration_managers),
-                                                                                        content_type: :json,
-                                                                                        accept: :json)
+      self.ecm_configuration_manager_data = Cradlepoint.make_request(:get, build_url(rel_url_for_configuration_managers))
     end
 
     def get_configuration_editor_data
