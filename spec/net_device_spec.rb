@@ -20,10 +20,11 @@ describe Cradlepoint::NetDevice do
 
     describe '.get_all_from_router' do
 
-      let(:router) { Cradlepoint::Router.new(ROUTER_ID) }
-      let(:device) { net_device.new(nil, router) }
+      let(:router)  { Cradlepoint::Router.new(ROUTER_ID) }
+      let(:device)  { net_device.new(nil, router) }
+      let(:devices) { device.get_all_from_router }
 
-      before { device.get_all_from_router }
+      before { devices }
 
       it 'should have been successful' do
         device.data['success'].should be_true
@@ -43,6 +44,13 @@ describe Cradlepoint::NetDevice do
 
       it 'should be an array' do
         device.data['data'].is_a?(Array).should be_true
+      end
+
+      describe 'devices' do
+
+        it 'should return an array' do
+          devices.is_a?(Array).should be_true
+        end
       end
     end
   end
