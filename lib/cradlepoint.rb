@@ -65,11 +65,6 @@ module Cradlepoint
       raise "Cradlepoint received an invalid json response."
     end
     
-    case response.code
-    when 200, 302 then parsed_response
-    when 400, 401 then false
-    when 500 then false
-    else false
-    end
+    parsed_response['success'] ? parsed_response : raise("Unsuccessful response received.")
   end
 end
