@@ -36,9 +36,7 @@ module Cradlepoint
 
     def get_all_from_router
       raise 'You must provide an ECM router' if router.nil?
-      self.data = Cradlepoint.handle_response RestClient.get(build_url(rel_url_from_router),
-                                                              content_type: :json,
-                                                              accept: :json)
+      self.data = Cradlepoint.make_request(:get, build_url(rel_url_from_router))
       assign_attributes_from_data(group: true)
     end
 

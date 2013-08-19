@@ -23,24 +23,24 @@ module Cradlepoint
   def self.make_request(method, url = '', params = {})
     raise 'You need to call Cradlepoint.authenticate(username, password) first.' unless username and password
 
-    parameters = { format: :json }
+    params.merge!(format: :json)
     headers = { accept: :json, content_type: :json }
 
     response = case method
-               when :get then RestClient.get()
-               when :configs then get_configs
-               else false
+               when :get then RestClient.get(url, params: params, headers: headers)
+               else return false
                end
     
-    response ? handle_response(response) : false
+    handle_response(response)
   rescue RestClient::Exception => e
+    puts "RestClient::Exception received: #{ e.code }"
     return case e.code
-           when 400 then { data: :unavailable }
-           when 401 then { data: :unavailable }
-           when 403 then { data: :unavailable }
-           when 404 then { data: :unavailable }
-           when 500 then { data: :unavailable }
-           else raise(e)
+           when 400 then { success: false, error_code: 400, error: e }
+           when 401 then { success: false, error_code: 401, error: e }
+           when 403 then { success: false, error_code: 403, error: e }
+           when 404 then { success: false, error_code: 404, error: e }
+           when 500 then { success: false, error_code: 500, error: e }
+           else raise(e) # Not an error we are expecting.
            end
   end
   

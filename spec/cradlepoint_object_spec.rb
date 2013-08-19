@@ -5,7 +5,7 @@ describe Cradlepoint::CradlepointObject do
   let(:factory_cradlepoint_object) { Cradlepoint::CradlepointObject     }
   let(:cradlepoint_object)         { Cradlepoint::CradlepointObject.new }
 
-  let(:url) { 'https://:@cradlepointecm.com/api/v1/blah?format=json' }
+  let(:url) { 'https://:@cradlepointecm.com/api/v1/blah' }
 
   context 'factory' do
 

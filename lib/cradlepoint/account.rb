@@ -1,7 +1,7 @@
 module Cradlepoint
   class Account < CradlepointObject
 
-    attr_accessor :ecm_id, :data
+    attr_accessor :ecm_id, :data, :disabled, :expiration, :name
 
     def initialize(id = nil)
       self.ecm_id = id
@@ -28,9 +28,7 @@ module Cradlepoint
     end
 
     def lazy_load_id
-      self.data = Cradlepoint.handle_response RestClient.get(build_url(rel_url),
-                                                              content_type: :json,
-                                                              accept: :json)
+      self.data = Cradlepoint.make_request(:get, build_url(rel_url))
       self.ecm_id = self.data['data'][0]['id']
       self.ecm_id
     end
