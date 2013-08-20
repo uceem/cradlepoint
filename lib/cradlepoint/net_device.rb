@@ -3,7 +3,8 @@ module Cradlepoint
     include Cradlepoint::HashHelpers
 
     attr_accessor :id, :router, :data, :bytes_in, :bytes_out, :carrier, :esn, :imei, :info, 
-                  :ip_address, :mac, :mode, :name, :type, :uptime
+                  :ip_address, :mac, :mode, :name, :type, :uptime, :netmask, :dns0, :dns1,
+                  :connection_state, :ip_mode
 
     def initialize(id = nil, router = nil)
       self.id = id
@@ -63,6 +64,7 @@ module Cradlepoint
     def assign_attributes_from_blob(blob = {})
       return unless blob and blob.any?
 
+      self.connection_state = blob[:connection_state]
       self.bytes_in = blob[:bytes_in]
       self.bytes_out = blob[:bytes_out]
       self.carrier = blob[:carrier]
@@ -75,6 +77,10 @@ module Cradlepoint
       self.name = blob[:name]
       self.type = blob[:type]
       self.uptime = blob[:uptime]
+      self.netmask = blob[:netmask]
+      self.dns0 = blob[:dns0]
+      self.dns1 = blob[:dns1]
+      self.ip_mode = blob[:config][:ipmode] if blob[:config].is_a?(Hash)
     end
   end
 end
