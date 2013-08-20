@@ -29,7 +29,7 @@ module Cradlepoint
 
     def lazy_load_id
       self.data = Cradlepoint.make_request(:get, build_url(rel_url))
-      self.ecm_id = self.data['data'][0]['id']
+      self.ecm_id = self.data[0][:id]
       self.ecm_id
     end
   end

@@ -33,8 +33,8 @@ module Cradlepoint
     
     handle_response(response)
   rescue RestClient::Exception => e
-    puts "RestClient::Exception received: #{ e.code }"
-    return case e.code
+    puts "RestClient::Exception received: #{ e.response.code }"
+    return case e.response.code
            when 400 then { success: false, error_code: 400, error: e }
            when 401 then { success: false, error_code: 401, error: e }
            when 403 then { success: false, error_code: 403, error: e }
@@ -54,10 +54,6 @@ module Cradlepoint
     "https://#{ @username }:#{ @password }@"
   end
   
-  def self.url_append
-    "?format=json"
-  end
-  
   def self.handle_response(response)
     begin
       parsed_response = JSON.parse(response)
@@ -65,11 +61,8 @@ module Cradlepoint
       raise "Cradlepoint received an invalid json response."
     end
     
-    case response.code
-    when 200, 302 then parsed_response
-    when 400, 401 then false
-    when 500 then false
-    else false
-    end
+    parsed_response['success'] ? 
+      symbolize_keys(parsed_response['data']) : 
+      raise("Unsuccessful response received.")  # TODO: Handle more elegantly.
   end
 end
