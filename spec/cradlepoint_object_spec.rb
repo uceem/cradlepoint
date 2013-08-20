@@ -19,5 +19,19 @@ describe Cradlepoint::CradlepointObject do
     it 'should return the correct url' do
       cradlepoint_object.build_url('/blah').should == url
     end
+
+    describe '.successful_response?' do
+
+      let(:successful_response) { [] }
+      let(:unsuccessful_responses) { [nil, { success: false }] }
+
+      it 'should think a successful response is successful' do
+        cradlepoint_object.successful_response?(successful_response).should be_true
+      end
+
+      it 'should think unsuccessful responses are unsuccessful' do
+        unsuccessful_responses.each { |r| cradlepoint_object.successful_response?(r).should be_false }
+      end
+    end
   end
 end
