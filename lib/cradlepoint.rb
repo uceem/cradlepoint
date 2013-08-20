@@ -13,7 +13,6 @@ require 'cradlepoint/router'
 require 'cradlepoint/config'
 
 module Cradlepoint
-  include Cradlepoint::HashHelpers
   
   class << self
     attr_accessor :username, :password, :account, :base_url
@@ -63,7 +62,7 @@ module Cradlepoint
     end
     
     parsed_response['success'] ? 
-      symbolize_keys(parsed_response['data']) : 
+      Cradlepoint::HashHelpers.symbolize_keys(parsed_response['data']) : 
       raise("Unsuccessful response received.")  # TODO: Handle more elegantly.
   end
 end
