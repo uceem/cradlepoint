@@ -7,8 +7,9 @@ module Cradlepoint
                   :mac, :config_status, :description, :full_product_name, :ip_address,
                   :name, :stream_usage_in, :stream_usage_out, :stream_usage_period
 
-    def initialize(id = nil)
+    def initialize(id = nil, options = {})
       self.id = id
+      options.each { |k, v| send("#{ k }=", v) if v }
     end
 
     def self.rel_url
@@ -36,7 +37,7 @@ module Cradlepoint
     end
 
     def self.index
-      Cradlepoint.make_request(:get, build_url(rel_url))
+      build_array_of_routers_from_response(Cradlepoint.make_request(:get, build_url(rel_url)))
     end
 
     def get
@@ -94,20 +95,32 @@ module Cradlepoint
       }
     end
 
+    def assign_attributes_from_data
+      return unless self.data and self.data.any?
+
+      self.mac = self.data[:mac]
+      self.name = self.data[:name]
+      self.ip_address = self.data[:ip_address]
+      self.config_status = self.data[:config_status]
+      self.description = self.data[:description]
+      self.full_product_name = self.data[:full_product_name]
+      self.stream_usage_in = self.data[:stream_usage_in]
+      self.stream_usage_out = self.data[:stream_usage_out]
+      self.stream_usage_period = self.data[:stream_usage_period]
+    end
+
     private
 
-      def assign_attributes_from_data
-        return unless self.data and self.data.any?
+      def self.build_array_of_routers_from_response(response)
+        return unless response and response.any?
+        response.map { |r| create_and_assign_attributes_from_data(r) }
+      end
 
-        self.mac = self.data[:mac]
-        self.name = self.data[:name]
-        self.ip_address = self.data[:ip_address]
-        self.config_status = self.data[:config_status]
-        self.description = self.data[:description]
-        self.full_product_name = self.data[:full_product_name]
-        self.stream_usage_in = self.data[:stream_usage_in]
-        self.stream_usage_out = self.data[:stream_usage_out]
-        self.stream_usage_period = self.data[:stream_usage_period]
+      def self.create_and_assign_attributes_from_data(data)
+        return unless data and data.any? and data[:id]
+        router = Cradlepoint::Router.new(data[:id], data: data)
+        router.assign_attributes_from_data
+        router
       end
 
       def check_for_id_or_raise_error
