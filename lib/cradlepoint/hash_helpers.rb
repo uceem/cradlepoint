@@ -4,7 +4,7 @@ module Cradlepoint
     # http://devblog.avdi.org/2009/07/14/recursively-symbolize-keys/
     def symbolize_keys(hash)
       if hash.is_a?(Array)
-        hash.each { |h| symbolize_keys(h) }
+        hash.map { |h| symbolize_keys(h) }
       else
         hash.inject({}) { |result, (key, value)|
           new_key = case key
