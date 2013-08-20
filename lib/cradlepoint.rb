@@ -33,8 +33,8 @@ module Cradlepoint
     
     handle_response(response)
   rescue RestClient::Exception => e
-    puts "RestClient::Exception received: #{ e.code }"
-    return case e.code
+    puts "RestClient::Exception received: #{ e.response.code }"
+    return case e.response.code
            when 400 then { success: false, error_code: 400, error: e }
            when 401 then { success: false, error_code: 401, error: e }
            when 403 then { success: false, error_code: 403, error: e }
