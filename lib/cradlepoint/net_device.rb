@@ -41,6 +41,10 @@ module Cradlepoint
       assign_attributes_from_data(group: true)
     end
 
+    def get_all_from_router_as_hash
+      Cradlepoint.make_request(:get, build_url(rel_url_from_router))
+    end
+
     def assign_attributes_from_data(options = {})
       return unless self.data and self.data.any?
       raw_data = self.data

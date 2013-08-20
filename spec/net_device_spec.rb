@@ -16,11 +16,25 @@ describe Cradlepoint::NetDevice do
 
   context 'when authenticated' do
 
+    let(:router) { Cradlepoint::Router.new(ROUTER_ID) }
+
     before { login }
+
+    describe '.get_all_from_router_as_hash' do
+
+      let(:response) { net_device.new(nil, router).get_all_from_router_as_hash }
+
+      subject { response }
+      it { should be }
+
+      it 'should return a an array of hashes' do
+        response.is_a?(Array).should be_true
+        response.each { |h| h.is_a?(Hash).should be_true }
+      end
+    end
 
     describe '.get_all_from_router' do
 
-      let(:router)  { Cradlepoint::Router.new(ROUTER_ID) }
       let(:device)  { net_device.new(nil, router) }
       let(:devices) { device.get_all_from_router }
 
