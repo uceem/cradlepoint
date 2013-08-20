@@ -41,8 +41,8 @@ module Cradlepoint
     end
 
     def assign_attributes_from_data(options = {})
-      return unless self.data and self.data['data'] and self.data['data'].any?
-      raw_data = self.data['data']
+      return unless self.data and self.data.any?
+      raw_data = self.data
 
       if options[:group]
         return unless raw_data.is_a?(Array)
@@ -61,9 +61,8 @@ module Cradlepoint
     end
 
     def assign_attributes_from_blob(blob = {})
-      return unless blob
+      return unless blob and blob.any?
 
-      blob = symbolize_keys(blob)
       self.bytes_in = blob[:bytes_in]
       self.bytes_out = blob[:bytes_out]
       self.carrier = blob[:carrier]

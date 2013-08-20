@@ -46,7 +46,7 @@ module Cradlepoint
                                                                router.get_configuration_editor_data.to_json,
                                                                content_type: :json,
                                                                accept: :json)
-      self.id = self.data['data']['id']
+      self.id = self.data[:id]
       self.data
     end
 
