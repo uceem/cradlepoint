@@ -2,7 +2,7 @@ module Cradlepoint
   module HashHelpers
     # From 
     # http://devblog.avdi.org/2009/07/14/recursively-symbolize-keys/
-    def symbolize_keys(hash)
+    def self.symbolize_keys(hash)
       if hash.is_a?(Array)
         hash.map { |h| symbolize_keys(h) }
       else
