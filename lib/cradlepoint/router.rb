@@ -112,12 +112,12 @@ module Cradlepoint
     private
 
       def self.build_array_of_routers_from_response(response)
-        return unless response and response.any?
+        return false unless successful_response?(response)
         response.map { |r| create_and_assign_attributes_from_data(r) }
       end
 
       def self.create_and_assign_attributes_from_data(data)
-        return unless data and data.any? and data[:id]
+        return unless ecm_object_blob?(data)
         router = Cradlepoint::Router.new(data[:id], data: data)
         router.assign_attributes_from_data
         router
