@@ -1,6 +1,5 @@
 module Cradlepoint
   class NetDevice < CradlepointObject
-    include Cradlepoint::HashHelpers
 
     attr_accessor :id, :router, :data, :bytes_in, :bytes_out, :carrier, :esn, :imei, :info, 
                   :ip_address, :mac, :mode, :name, :type, :uptime, :netmask, :dns0, :dns1,
@@ -68,6 +67,7 @@ module Cradlepoint
     def assign_attributes_from_blob(blob = {})
       return unless blob and blob.any?
 
+      self.data = blob
       self.connection_state = blob[:connection_state]
       self.bytes_in = blob[:bytes_in]
       self.bytes_out = blob[:bytes_out]

@@ -32,4 +32,4 @@ def logout
   Cradlepoint.password = nil
 end
 
-include Cradlepoint::HashHelpers
+include Utils::HashHelpers
