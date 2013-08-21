@@ -1,6 +1,5 @@
 module Cradlepoint
   class Router < CradlepointObject
-    include Cradlepoint::HashHelpers
 
     attr_accessor :id, :data, :ecm_firmware_uri, :ecm_configuration_uri, 
                   :ecm_configuration_manager_uri, :ecm_configuration_manager_data,

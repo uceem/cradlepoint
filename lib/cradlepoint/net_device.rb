@@ -1,6 +1,5 @@
 module Cradlepoint
   class NetDevice < CradlepointObject
-    include Cradlepoint::HashHelpers
 
     attr_accessor :id, :router, :data, :bytes_in, :bytes_out, :carrier, :esn, :imei, :info, 
                   :ip_address, :mac, :mode, :name, :type, :uptime, :netmask, :dns0, :dns1,
