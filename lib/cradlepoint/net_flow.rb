@@ -18,11 +18,13 @@ module Cradlepoint
 
     def get
       raise 'You must provide a mac' unless self.mac
+      return self.data if self.data
       self.data = Cradlepoint.make_request(:get, build_new_url(rel_url), params)
     end
 
     def get_status
       raise 'You must provide a mac' unless self.mac
+      return self.status_data if self.status_data
       self.status_data = Cradlepoint.make_request(:get, build_new_url("#{ rel_url }/status"), params)
     end
 

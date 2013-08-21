@@ -3,7 +3,7 @@ require 'rest-client'
 
 require 'cradlepoint/version'
 
-require 'cradlepoint/hash_helpers'
+require 'utils/hash_helpers'
 
 require 'cradlepoint/cradlepoint_object'
 require 'cradlepoint/account'
@@ -62,7 +62,7 @@ module Cradlepoint
     end
     
     parsed_response['success'] ? 
-      Cradlepoint::HashHelpers.symbolize_keys(parsed_response['data']) : 
-      raise("Unsuccessful response received.")  # TODO: Handle more elegantly.
+      Utils::HashHelpers.symbolize_keys(parsed_response['data']) : 
+      raise("Unsuccessful response received: #{ parsed_response.inspect }")  # TODO: Handle more elegantly.
   end
 end

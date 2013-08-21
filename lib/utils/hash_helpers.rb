@@ -1,4 +1,4 @@
-module Cradlepoint
+module Utils
   module HashHelpers
     # From 
     # http://devblog.avdi.org/2009/07/14/recursively-symbolize-keys/
