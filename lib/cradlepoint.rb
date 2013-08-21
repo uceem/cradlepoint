@@ -63,6 +63,6 @@ module Cradlepoint
     
     parsed_response['success'] ? 
       Cradlepoint::HashHelpers.symbolize_keys(parsed_response['data']) : 
-      raise("Unsuccessful response received.")  # TODO: Handle more elegantly.
+      raise("Unsuccessful response received: #{ parsed_response.inspect }")  # TODO: Handle more elegantly.
   end
 end

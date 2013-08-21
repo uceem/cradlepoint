@@ -69,14 +69,10 @@ describe Cradlepoint::Router do
 
       let(:the_router) { router.new(ROUTER_ID) }
 
-      it 'should have gotten the firmware data' do
-        pending 'Waiting for updates to the firmware on the API side.'
-        the_router.firmware_data['success'].should be_true
+      it 'should return nil when no firmware_uri exists' do
+        the_router.ecm_firmware_uri = nil
+        the_router.firmware_data.should be_nil
       end
-    end
-
-    describe '.apply_new_config' do
-
     end
   end
 end

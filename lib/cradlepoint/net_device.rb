@@ -68,6 +68,7 @@ module Cradlepoint
     def assign_attributes_from_blob(blob = {})
       return unless blob and blob.any?
 
+      self.data = blob
       self.connection_state = blob[:connection_state]
       self.bytes_in = blob[:bytes_in]
       self.bytes_out = blob[:bytes_out]

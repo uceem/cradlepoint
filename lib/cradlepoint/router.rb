@@ -62,7 +62,7 @@ module Cradlepoint
 
     def firmware_data
       check_for_id_or_raise_error
-      Cradlepoint.make_request(:get, build_url(firmware_uri.split('/api/v1').last))
+      Cradlepoint.make_request(:get, build_url(firmware_uri.split('/api/v1').last)) if firmware_uri
     end
 
     def firmware_uri
