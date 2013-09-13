@@ -34,7 +34,7 @@ module Cradlepoint
     end
 
     def params
-      { params: { format: :json, mac: self.mac, limit: 1 } }
+      { format: :json, mac: self.mac, limit: 1 }
     end
   end
 end

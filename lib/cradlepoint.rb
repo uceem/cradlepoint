@@ -27,7 +27,7 @@ module Cradlepoint
     headers = { accept: :json, content_type: :json }
 
     response = case method
-               when :get then RestClient.get(url, params: params, headers: headers)
+               when :get then RestClient.get(url, { params: params })
                else return false
                end
     
