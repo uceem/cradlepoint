@@ -28,6 +28,11 @@ module Cradlepoint
       self.status_data = Cradlepoint.make_request(:get, build_new_url("#{ rel_url }/status"), params)
     end
 
+    def get_wan_devices
+      raise 'You must provide a mac' unless self.mac
+      Cradlepoint.make_request(:get, build_new_url("#{ rel_url }/status/wan/devices"), params)
+    end
+
     def params
       { params: { format: :json, mac: self.mac, limit: 1 } }
     end
