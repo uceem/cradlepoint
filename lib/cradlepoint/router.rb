@@ -80,7 +80,8 @@ module Cradlepoint
       get unless self.data and self.data.any?
       return nil unless self.data[:group]
 
-      group_data = Cradlepoint.make_request(get, build_url(self.data[:group].split('/api/v1').last))
+      group_data = Cradlepoint.make_request(:get, build_url(self.data[:group].split('/api/v1').last))
+      return unless group_data
       self.group_name = group_data[:name]
       group_data
     end
@@ -89,7 +90,7 @@ module Cradlepoint
       get unless self.data and self.data.any?
       return nil unless self.data[:group]
       
-      Cradlepoint.make_request(get, build_url(self.data[:group].split('/api/v1').last + '/routers'))
+      Cradlepoint.make_request(:get, build_url(self.data[:group].split('/api/v1').last + '/routers'))
     end
 
     def lazy_load_router_data
