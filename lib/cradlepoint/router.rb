@@ -4,7 +4,8 @@ module Cradlepoint
     attr_accessor :id, :data, :ecm_firmware_uri, :ecm_configuration_uri, 
                   :ecm_configuration_manager_uri, :ecm_configuration_manager_data,
                   :mac, :config_status, :description, :full_product_name, :ip_address,
-                  :name, :stream_usage_in, :stream_usage_out, :stream_usage_period
+                  :name, :stream_usage_in, :stream_usage_out, :stream_usage_period,
+                  :group_name
 
     def initialize(id = nil, options = {})
       self.id = id
@@ -73,6 +74,22 @@ module Cradlepoint
       lazy_load_router_data unless self.ecm_configuration_manager_uri
       lazy_load_configuration_manager_data unless self.ecm_configuration_uri
       self.ecm_configuration_uri
+    end
+
+    def group
+      get unless self.data and self.data.any?
+      return nil unless self.data[:group]
+
+      group_data = Cradlepoint.make_request(get, build_url(self.data[:group].split('/api/v1').last))
+      self.group_name = group_data[:name]
+      group_data
+    end
+
+    def group_list
+      get unless self.data and self.data.any?
+      return nil unless self.data[:group]
+      
+      Cradlepoint.make_request(get, build_url(self.data[:group].split('/api/v1').last + '/routers'))
     end
 
     def lazy_load_router_data
