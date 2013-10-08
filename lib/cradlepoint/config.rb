@@ -70,7 +70,7 @@ module Cradlepoint
         editor_data[:resource_uri] = '/api/v1' + rel_url_with_id
         editor_data[:committed] = true
         editor_data[:id] = self.id
-        editor_data[:diff_from_default] = [wifi_values_wrapper(config_settings), []]
+        editor_data[:diff_from_baseline] = [wifi_values_wrapper(config_settings), []]
         editor_data
       end
       
