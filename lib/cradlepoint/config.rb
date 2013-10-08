@@ -76,9 +76,13 @@ module Cradlepoint
       
       def wifi_values_wrapper(config_settings)
         {
-          wlan: {
-            bss: {
-              :'0' => wifi_values(config_settings)
+          radio: {
+            :'0' => {
+              wlan: {
+                bss: {
+                  :'0' => wifi_values(config_settings)
+                }
+              }
             }
           }
         }
