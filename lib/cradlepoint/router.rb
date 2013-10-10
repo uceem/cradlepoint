@@ -4,7 +4,8 @@ module Cradlepoint
     attr_accessor :id, :data, :ecm_firmware_uri, :ecm_configuration_uri, 
                   :ecm_configuration_manager_uri, :ecm_configuration_manager_data,
                   :mac, :config_status, :description, :full_product_name, :ip_address,
-                  :name, :stream_usage_in, :stream_usage_out, :stream_usage_period
+                  :name, :stream_usage_in, :stream_usage_out, :stream_usage_period,
+                  :group_name
 
     def initialize(id = nil, options = {})
       self.id = id
@@ -75,6 +76,23 @@ module Cradlepoint
       self.ecm_configuration_uri
     end
 
+    def group
+      get unless self.data and self.data.any?
+      return nil unless self.data[:group]
+
+      group_data = Cradlepoint.make_request(:get, build_url(self.data[:group].split('/api/v1').last))
+      return unless group_data
+      self.group_name = group_data[:name]
+      group_data
+    end
+
+    def group_list
+      get unless self.data and self.data.any?
+      return nil unless self.data[:group]
+      
+      Cradlepoint.make_request(:get, build_url(self.data[:group].split('/api/v1').last + '/routers'))
+    end
+
     def lazy_load_router_data
       get  # Grab the data from the api.
       self.ecm_firmware_uri = self.data[:actual_firmware]
@@ -83,12 +101,12 @@ module Cradlepoint
 
     def lazy_load_configuration_manager_data
       self.ecm_configuration_manager_data = Cradlepoint.make_request(:get, build_url(rel_url_for_configuration_managers))
+      self.ecm_configuration_uri = self.ecm_configuration_manager_data[:configuration_manager]
     end
 
     def get_configuration_editor_data
       {
         account: '/api/v1' + Cradlepoint.account.rel_url_with_id,
-        baseline: configuration_uri,
         firmware: firmware_uri,
         router: '/api/v1' + rel_url_with_id
       }
@@ -97,14 +115,14 @@ module Cradlepoint
     def assign_attributes_from_data
       return unless self.data and self.data.any?
 
-      self.mac = self.data[:mac]
-      self.name = self.data[:name]
-      self.ip_address = self.data[:ip_address]
-      self.config_status = self.data[:config_status]
-      self.description = self.data[:description]
-      self.full_product_name = self.data[:full_product_name]
-      self.stream_usage_in = self.data[:stream_usage_in]
-      self.stream_usage_out = self.data[:stream_usage_out]
+      self.mac                 = self.data[:mac]
+      self.name                = self.data[:name]
+      self.ip_address          = self.data[:ip_address]
+      self.config_status       = self.data[:config_status]
+      self.description         = self.data[:description]
+      self.full_product_name   = self.data[:full_product_name]
+      self.stream_usage_in     = self.data[:stream_usage_in]
+      self.stream_usage_out    = self.data[:stream_usage_out]
       self.stream_usage_period = self.data[:stream_usage_period]
     end
 
