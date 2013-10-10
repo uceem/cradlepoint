@@ -47,6 +47,7 @@ module Cradlepoint
   def self.authenticate(username, password)
     self.username = username
     self.password = password
+    self.account  = Cradlepoint::Account.new unless self.account
     true
   end
   
