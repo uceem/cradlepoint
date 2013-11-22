@@ -27,13 +27,17 @@ module Cradlepoint
       self.data = Cradlepoint.make_request(:get, build_url(rel_url_with_id))
     end
 
-    def to_json
+    def as_json
+      as_hash.to_json
+    end
+
+    def as_hash
       {
         id: id,
         name: name,
         disabled: disabled,
         expiration: expiration,
-      }.to_json
+      }
     end
 
     private
