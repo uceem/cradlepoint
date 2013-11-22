@@ -17,10 +17,6 @@ module Cradlepoint
       CradlepointObject.build_new_url(rel_url)
     end
 
-    def params
-      { params: { format: :json } }
-    end
-
     def self.successful_response?(response)
       return false unless response
       return false if response.is_a?(Hash) and !response[:success]
@@ -39,6 +35,14 @@ module Cradlepoint
 
     def ecm_object_blob?(object_blob)
       Cradlepoint::CradlepointObject.ecm_object_blob?(object_blob)
+    end
+
+    def as_json
+      as_hash.to_json
+    end
+
+    def params
+      { params: { format: :json } }
     end
   end
 end
